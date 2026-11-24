@@ -15,7 +15,9 @@ assert.equal(publicPage.headers.get('www-authenticate'), null);
 const visitorCookie = publicPage.headers.get('set-cookie')?.split(';')[0];
 assert.ok(visitorCookie);
 console.log('Public home without login: 200');
-assert.equal((await fetch(origin + '/favicon.svg')).status, 200);
+for (const path of ['/plans', '/saitaku-logo.png', '/og.png', '/favicon.svg']) {
+  assert.equal((await fetch(origin + path)).status, 404, `Removed ${path}`);
+}
 const visitorQuota = await fetch(origin + '/api/quota', { headers: { cookie: visitorCookie } });
 assert.equal(visitorQuota.status, 200);
 const visitorData = await visitorQuota.json();
@@ -26,7 +28,9 @@ const headers = { authorization };
 const page = await fetch(origin, { headers });
 assert.equal(page.status, 200, 'Authenticated home page');
 const html = await page.text();
-assert.ok(html.includes('サイタク'));
+assert.ok(html.includes('<title>テスト</title>'));
+assert.ok(html.includes('補助金チェック'));
+for (const old of ['サイタク', 'プラン比較', '補助金書類チェッカー', '/saitaku-logo.png', '/og.png']) assert.ok(!html.includes(old), `Removed branding: ${old}`);
 console.log('Authenticated home: 200');
 const asset = html.match(/(?:href|src)="([^" ]+\.css)"/)?.[1];
 assert.ok(asset, 'CSS asset exists');

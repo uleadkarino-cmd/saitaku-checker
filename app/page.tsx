@@ -1363,7 +1363,7 @@ export default function Home() {
       (item) => item.status !== 'good',
     );
     const lines = [
-      'サイタク！補助金書類チェッカー　確認結果',
+      'テスト（補助金チェック）　確認結果',
       `修正が必要：${dangerCount}件／確認が必要：${warningCount}件／確認できた：${goodCount}件`,
       '',
       ...(shareItems.length
@@ -1854,30 +1854,18 @@ export default function Home() {
         <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 pt-1 sm:h-24 sm:px-8">
           <a
             href="/"
-            aria-label="サイタク！補助金書類チェッカー トップへ"
+            aria-label="テスト トップへ"
             className="flex shrink-0 items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/30 sm:gap-3.5"
           >
-            <img
-              src="/saitaku-logo.png"
-              alt="サイタク！ 補助金を、もっとカンタンに。"
-              className="brand-logo"
-            />
-            <span className="border-l-2 border-yellow-400 pl-2.5 text-[11px] font-bold leading-4 tracking-[0.02em] text-[#072f5f] sm:pl-3.5 sm:text-sm sm:leading-5">
-              補助金書類
-              <br className="sm:hidden" />
-              チェッカー
+            <span className="text-xl font-bold text-[#072f5f] sm:text-2xl">テスト</span>
+            <span className="text-xs font-medium text-[#072f5f] sm:text-sm">
+              補助金チェック
             </span>
           </a>
           <div className="flex items-center gap-1 sm:gap-2">
             <span className="hidden rounded-full border border-border bg-background px-3 py-1.5 text-[11px] font-medium text-muted-foreground md:inline">
               公募要領 第20回・第8版対応
             </span>
-            <a
-              href="/plans"
-              className="inline-flex h-8 items-center rounded-lg px-2 text-xs font-bold text-amber-900 hover:bg-amber-50"
-            >
-              プラン比較
-            </a>
             <a
               href="/faq"
               className="inline-flex h-8 items-center rounded-lg px-2 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -2529,12 +2517,6 @@ export default function Home() {
                       ? '引き続き書類を詳しく確認したい場合は、有料版のご案内をご確認ください。料金は正式決定後に掲載します。'
                       : '提出直前の再確認に残しておくことをおすすめします。有料版では、書類間の整合性や詳しい改善案も確認できる予定です。'}
                   </p>
-                  <a
-                    href="/plans"
-                    className="mt-3 inline-flex h-9 items-center rounded-lg bg-amber-400 px-4 text-xs font-bold text-amber-950 hover:bg-amber-300"
-                  >
-                    無料版と有料版を比較する
-                  </a>
                 </div>
               )}
               {checkMode === 'finalPdf' && (
@@ -3392,7 +3374,7 @@ export default function Home() {
             <>
               <div className="mb-5 hidden border-b-2 border-primary pb-3 print:block">
                 <p className="text-xl font-bold">
-                  サイタク！補助金書類チェッカー
+                  テスト（補助金チェック）
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
                   チェック結果レポート
@@ -3748,12 +3730,6 @@ export default function Home() {
                       ? '引き続き書類を詳しく確認したい場合は、有料版のご案内をご確認ください。料金は正式決定後に掲載します。'
                       : '提出直前の再確認に残しておくことをおすすめします。有料版では、書類間の整合性や詳しい改善案も確認できる予定です。'}
                   </p>
-                  <a
-                    href="/plans"
-                    className="mt-3 inline-flex h-9 items-center rounded-lg bg-amber-400 px-4 text-xs font-bold text-amber-950 hover:bg-amber-300"
-                  >
-                    無料版と有料版を比較する
-                  </a>
                 </div>
               )}
               <section className="premium-card print:hidden">

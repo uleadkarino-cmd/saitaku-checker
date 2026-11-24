@@ -16,34 +16,21 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.SITE_ORIGIN || 'http://localhost:3000',
   ),
-  title: 'サイタク！補助金書類チェッカー',
-  icons: {
-    icon: [{ url: '/favicon.svg?v=2', type: 'image/svg+xml', sizes: 'any' }],
-    shortcut: '/favicon.svg?v=2',
-  },
+  title: 'テスト',
   description:
     '公募要領に沿って、補助金申請書類の不足や不備をやさしく確認できます。',
   openGraph: {
-    title: 'サイタク！補助金書類チェッカー',
+    title: 'テスト',
     description:
       '公募要領に沿って、補助金申請書類の不足や不備をやさしく確認できます。',
     type: 'website',
     locale: 'ja_JP',
-    images: [
-      {
-        url: '/og.png',
-        width: 1731,
-        height: 909,
-        alt: 'サイタク！補助金書類チェッカー',
-      },
-    ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'サイタク！補助金書類チェッカー',
+    card: 'summary',
+    title: 'テスト',
     description:
       '公募要領に沿って、補助金申請書類の不足や不備をやさしく確認できます。',
-    images: ['/og.png'],
   },
 };
 

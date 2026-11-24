@@ -37,7 +37,7 @@ const items: Array<{ category: string; title: string; note: string; status: Stat
   { category: '運営', title: 'お問い合わせ受付・管理', note: '対応状況、管理メモ、検索、CSV保存を利用できます。', status: 'done' },
   { category: '公開情報', title: '対応範囲・FAQ・料金比較', note: '利用前に確認できる案内ページを掲載しました。', status: 'done' },
   { category: '公開情報', title: '個人情報・データの取扱い', note: '現在の保存範囲と利用目的を掲載しました。', status: 'done' },
-  { category: 'デザイン', title: 'ロゴ・名称・基本デザイン', note: '「サイタク！補助金書類チェッカー」として統一しました。', status: 'done' },
+  { category: 'デザイン', title: 'ロゴ・名称・基本デザイン', note: 'サイト名を「テスト」、機能名を「補助金チェック」に変更し、ロゴを削除しました。', status: 'done' },
   { category: '品質', title: '実書類による読み取り精度確認', note: '複数の実例で誤読・見出し振り分け・文字数判定を継続確認します。', status: 'review' },
   { category: '品質', title: '第20回の追加公式資料への対応', note: 'FAQ、参考資料、操作手引き等の公開後にルールを再確認します。', status: 'review' },
   { category: '法務', title: '利用規約・表示内容の専門家確認', note: '現在は草案です。運営者情報と販売条件の確定後に最終確認します。', status: 'review' },

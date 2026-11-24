@@ -49,7 +49,7 @@ const faqs = [
   {
     question: '有料版はいつから、いくらで使えますか？',
     answer:
-      '現在は準備中で、料金と開始日は未定です。書類間の詳しい整合性チェック、より具体的な改善アドバイス、結果レポートのPDF保存などを検討しています。決定後にプラン比較ページと特定商取引法に基づく表記へ掲載します。',
+      '現在は準備中で、料金と開始日は未定です。書類間の詳しい整合性チェック、より具体的な改善アドバイス、結果レポートのPDF保存などを検討しています。決定後に特定商取引法に基づく表記へ掲載します。',
   },
 ];
 
@@ -62,7 +62,7 @@ export default function FaqPage() {
           className="inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-primary"
         >
           <ArrowLeft className="size-4" />
-          チェッカーに戻る
+          補助金チェックに戻る
         </a>
 
         <header className="mt-8 text-center">

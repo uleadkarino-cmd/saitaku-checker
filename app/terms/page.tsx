@@ -3,7 +3,7 @@ import { AlertTriangle, ArrowLeft, FileText, ShieldCheck } from 'lucide-react';
 const sections = [
   {
     title: '1. この規約について',
-    body: 'この利用規約は、「サイタク！補助金書類チェッカー」（以下「本サービス」）の利用条件を定めるものです。本サービスを利用する方は、この規約と個人情報・データの取扱いに同意したうえで利用してください。',
+    body: 'この利用規約は、「テスト（補助金チェック）」（以下「本サービス」）の利用条件を定めるものです。本サービスを利用する方は、この規約と個人情報・データの取扱いに同意したうえで利用してください。',
   },
   {
     title: '2. サービスの目的',
@@ -56,7 +56,7 @@ export default function TermsPage() {
           className="inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-primary"
         >
           <ArrowLeft className="size-4" />
-          チェッカーに戻る
+          補助金チェックに戻る
         </a>
         <article className="mt-8 rounded-3xl border border-border bg-white p-6 shadow-[0_12px_40px_rgb(7_47_95/7%)] sm:p-9">
           <span className="grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">
@@ -64,7 +64,7 @@ export default function TermsPage() {
           </span>
           <h1 className="mt-5 text-3xl font-bold">利用規約</h1>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">
-            サイタク！補助金書類チェッカーを安心して利用いただくための条件です。
+            テスト（補助金チェック）を安心して利用いただくための条件です。
           </p>
 
           <div className="mt-6 flex gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-7 text-amber-950">

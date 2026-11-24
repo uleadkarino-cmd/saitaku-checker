@@ -23,7 +23,7 @@ export default function CommercialTransactionsPage() {
           className="inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-primary"
         >
           <ArrowLeft className="size-4" />
-          チェッカーに戻る
+          補助金チェックに戻る
         </a>
 
         <article className="mt-8 rounded-3xl border border-border bg-white p-6 shadow-[0_12px_40px_rgb(7_47_95/7%)] sm:p-9">
@@ -68,9 +68,6 @@ export default function CommercialTransactionsPage() {
           </section>
 
           <nav className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-bold">
-            <a href="/plans" className="text-primary underline underline-offset-4">
-              プラン比較
-            </a>
             <a href="/terms" className="text-primary underline underline-offset-4">
               利用規約
             </a>

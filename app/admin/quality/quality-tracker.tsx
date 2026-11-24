@@ -113,7 +113,7 @@ export function QualityTracker({ testCases }: { testCases: TestCase[] }) {
     const link = document.createElement('a');
     const date = new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()).replaceAll('/', '-');
     link.href = url;
-    link.download = `サイタク_品質テスト記録_${date}.csv`;
+    link.download = `テスト_品質テスト記録_${date}.csv`;
     link.click();
     URL.revokeObjectURL(url);
   }

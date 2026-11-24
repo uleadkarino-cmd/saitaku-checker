@@ -15,7 +15,7 @@ export default function CoveragePage() {
           className="inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-primary"
         >
           <ArrowLeft className="size-4" />
-          チェッカーに戻る
+          補助金チェックに戻る
         </a>
         <div className="mt-8 rounded-3xl border border-border bg-white p-6 shadow-[0_12px_40px_rgb(7_47_95/7%)] sm:p-9">
           <span className="grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">

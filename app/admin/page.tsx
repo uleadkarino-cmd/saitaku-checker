@@ -223,7 +223,7 @@ export default async function AdminPage({
           className="inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-primary"
         >
           <ArrowLeft className="size-4" />
-          チェッカーに戻る
+          補助金チェックに戻る
         </a>
 
         <header className="mt-8 rounded-3xl border border-emerald-200 bg-emerald-50 p-6 sm:p-8">
