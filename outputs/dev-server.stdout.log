@@ -889,3 +889,5 @@ Transform failed with 1 error:
  GET /api/quota 401 in 199ms
 14:32:24 [vite] (rsc) hmr update /app/globals.css
 14:32:24 [vite] (client) hmr update /app/globals.css?direct
+14:32:44 [vite] (rsc) hmr update /app/globals.css
+14:32:44 [vite] (client) hmr update /app/globals.css?direct
