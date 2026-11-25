@@ -43,5 +43,5 @@ next-env.d.ts
 /.vscode/
 *.tsbuildinfo
 
-# separately generated sample project
-/d1-crud-api/
+# sample project editor state
+/d1-crud-api/.vscode/
