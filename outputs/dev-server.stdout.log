@@ -551,3 +551,5 @@ Transform failed with 1 error:
 9:50:07 [vite] (client) hmr update /app/globals.css?direct
 9:52:04 [vite] (rsc) hmr update /app/globals.css
 9:52:04 [vite] (client) hmr update /app/globals.css?direct
+10:08:49 [vite] (rsc) hmr update /app/globals.css
+10:08:49 [vite] (client) hmr update /app/globals.css?direct
