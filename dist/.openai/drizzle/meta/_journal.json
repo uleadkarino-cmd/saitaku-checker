@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1788416533020,
+      "tag": "0000_violet_karen_page",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1788418181865,
+      "tag": "0001_minor_squirrel_girl",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1788419004101,
+      "tag": "0002_yellow_sersi",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1788421543654,
+      "tag": "0003_slow_pandemic",
+      "breakpoints": true
+    }
+  ]
+}
