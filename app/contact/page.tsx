@@ -16,6 +16,7 @@ export default function ContactPage() {
   const [email, setEmail] = useState('');
   const [paidFeatures, setPaidFeatures] = useState<string[]>([]);
   const [reviewing, setReviewing] = useState(false);
+  const [reviewAttempted, setReviewAttempted] = useState(false);
   const [sending, setSending] = useState(false);
   const [sentReference, setSentReference] = useState('');
   const [sendError, setSendError] = useState('');
@@ -77,6 +78,16 @@ export default function ContactPage() {
 
   const isBugReport = category === '不具合の報告';
   const isPaidPlan = category === '料金・購入について';
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const messageValid = message.trim().length >= 10;
+  const canReview = emailValid && messageValid && confirmed;
+  const reviewInquiry = () => {
+    setReviewAttempted(true);
+    setReviewing(canReview);
+    if (!canReview) {
+      document.getElementById(!emailValid ? 'contact-email' : !messageValid ? 'contact-message' : 'contact-confirmed')?.focus();
+    }
+  };
   const paidFeatureOptions = [
     '書類間の整合性チェック',
     '詳しい改善アドバイス',
@@ -85,6 +96,10 @@ export default function ContactPage() {
   ];
 
   const submitInquiry = async () => {
+    if (!canReview) {
+      reviewInquiry();
+      return;
+    }
     setSending(true);
     setSendError('');
     try {
@@ -93,7 +108,7 @@ export default function ContactPage() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           name,
-          replyEmail: email,
+          replyEmail: email.trim(),
           category,
           paidFeatures: isPaidPlan ? paidFeatures : [],
           message,
@@ -210,10 +225,13 @@ export default function ContactPage() {
               />
             </label>
             <label className="block text-sm font-bold">
-              返信先メールアドレス
+              返信先メールアドレス（必須）
               <Input
+                id="contact-email"
                 type="email"
                 required
+                aria-invalid={reviewAttempted && !emailValid}
+                aria-describedby={reviewAttempted && !emailValid ? 'contact-email-error' : undefined}
                 value={email}
                 onChange={(event) => {
                   setEmail(event.target.value);
@@ -222,10 +240,16 @@ export default function ContactPage() {
                 placeholder="name@example.com"
                 className="mt-2"
               />
+              {reviewAttempted && !emailValid && (
+                <span id="contact-email-error" className="mt-2 block text-sm text-red-700">返信先メールアドレスを正しい形式で入力してください。</span>
+              )}
             </label>
             <label className="block text-sm font-bold">
-              お問い合わせ内容
+              お問い合わせ内容（必須・10文字以上）
               <Textarea
+                id="contact-message"
+                aria-invalid={reviewAttempted && !messageValid}
+                aria-describedby={reviewAttempted && !messageValid ? 'contact-message-error' : undefined}
                 value={message}
                 onChange={(event) => {
                   setMessage(event.currentTarget.value);
@@ -238,6 +262,9 @@ export default function ContactPage() {
                 }
                 className="mt-2 min-h-36"
               />
+              {reviewAttempted && !messageValid && (
+                <span id="contact-message-error" className="mt-2 block text-sm text-red-700">お問い合わせ内容を10文字以上入力してください（現在{message.trim().length}文字）。</span>
+              )}
             </label>
             {isBugReport && (
               <div className="rounded-xl border border-sky-200 bg-sky-50 p-4 text-xs leading-6 text-sky-950">
@@ -267,26 +294,37 @@ export default function ContactPage() {
             </div>
             <label className="flex items-start gap-3 text-xs leading-5 text-muted-foreground">
               <input
+                id="contact-confirmed"
                 type="checkbox"
                 checked={confirmed}
-                onChange={(event) => setConfirmed(event.target.checked)}
+                aria-invalid={reviewAttempted && !confirmed}
+                onChange={(event) => {
+                  setConfirmed(event.target.checked);
+                  setReviewing(false);
+                }}
                 className="mt-1 size-4 accent-[var(--primary)]"
               />
               入力内容に機密情報が含まれていないことを確認しました。
             </label>
-            <Button
-              type="button"
-              onClick={() => setReviewing(true)}
-              disabled={
-                !confirmed ||
-                message.trim().length < 10 ||
-                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-              }
-              className="h-11 gap-2 rounded-xl px-5"
-            >
-              <Send />
-              入力内容を確認する
-            </Button>
+            {reviewAttempted && !canReview && (
+              <p role="alert" className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900">
+                入力内容を確認してください。
+                {!emailValid && '返信先メールアドレスを正しい形式で入力してください。'}
+                {!messageValid && 'お問い合わせ内容は10文字以上必要です。'}
+                {!confirmed && '機密情報が含まれていないことを確認し、チェックを入れてください。'}
+              </p>
+            )}
+            {!reviewing && !sentReference && (
+              <Button
+                type="button"
+                onClick={reviewInquiry}
+                disabled={sending}
+                className="h-11 gap-2 rounded-xl px-5"
+              >
+                <Send />
+                入力内容を確認する
+              </Button>
+            )}
             {reviewing && (
               <div
                 role="status"
