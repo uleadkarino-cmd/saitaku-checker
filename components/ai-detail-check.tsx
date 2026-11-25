@@ -7,8 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { parseReport, type ReviewInput, type ReviewReport } from '@/lib/ai-review';
 
-type Props = { input: Omit<ReviewInput, 'consent'>; disabled: boolean };
-export function AiDetailCheck({ input, disabled }: Props) {
+type Props = { input: Omit<ReviewInput, 'consent'>; disabled: boolean; reading?: boolean };
+export function AiDetailCheck({ input, disabled, reading = false }: Props) {
   const [open, setOpen] = useState(false);
   const [consent, setConsent] = useState(false);
   const [connection, setConnection] = useState<'loading' | 'ready' | 'missing' | 'error'>('loading');
@@ -86,7 +86,7 @@ export function AiDetailCheck({ input, disabled }: Props) {
             {running ? <><LoaderCircle className="mr-2 size-4 animate-spin" />AIで解析中…</> : report ? 'もう一度詳細チェックする' : '詳細チェックを見る'}
           </Button>
           {running && <Button variant="outline" className="ml-2 mt-5" onClick={() => activeRequest.current?.abort()}>中止</Button>}
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">{disabled ? '実書類テストモード中はAI送信を無効にしています。' : !hasPlan ? '計画の文章を入力、またはPDFから読み込むと利用できます。' : '送信前に内容を確認できます。メール認証・購入手続きはありません。'}</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">{reading ? 'PDFの本文を読み取っています。完了すると利用できます。' : disabled ? '実書類テストモード中はAI送信を無効にしています。' : !hasPlan ? '計画の文章を入力、またはPDFから読み込むと利用できます。' : '送信前に内容を確認できます。メール認証・購入手続きはありません。'}</p>
           {running && <p role="status" className="mt-2 text-sm">解析には1分ほどかかる場合があります。</p>}
           {error && <p role="alert" className="mt-3 text-sm font-bold text-red-800">{error}</p>}
         </div>

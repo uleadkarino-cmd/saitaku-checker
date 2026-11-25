@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { scorePlanText } from '@/lib/plan-scoring';
 import { AiDetailCheck } from '@/components/ai-detail-check';
 import {
@@ -774,6 +774,9 @@ function evaluatePlanField(
 export default function Home() {
   const [selected, setSelected] = useState('jizokuka');
   const [step, setStep] = useState(1);
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [step]);
   const [businessType, setBusinessType] = useState('法人');
   const [applicantName, setApplicantName] = useState('');
   const [fiscalHistory, setFiscalHistory] = useState('1期以上');
@@ -800,6 +803,7 @@ export default function Home() {
   const [checkMode, setCheckMode] = useState<'guided' | 'finalPdf'>('guided');
   const [guidedPlanFile, setGuidedPlanFile] = useState<File | null>(null);
   const [guidedPlanReading, setGuidedPlanReading] = useState(false);
+  const guidedReadVersion = useRef(0);
   const [expenseFiles, setExpenseFiles] = useState<File[]>([]);
   const [requiredDocFiles, setRequiredDocFiles] = useState<
     Record<string, File>
@@ -1533,6 +1537,9 @@ export default function Home() {
       globalThis.pdfjsWorker = { WorkerMessageHandler };
       const pdf = await pdfjs.getDocument({
         data: new Uint8Array(await file.arrayBuffer()),
+        cMapUrl: '/pdfjs/cmaps/',
+        cMapPacked: true,
+        standardFontDataUrl: '/pdfjs/standard_fonts/',
       }).promise;
       const pages: string[] = [];
       for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
@@ -1551,39 +1558,49 @@ export default function Home() {
     }
   };
 
+  const loadGuidedPlan = async (file: File) => {
+    const version = ++guidedReadVersion.current;
+    setGuidedPlanReading(true);
+    setPlan({});
+    setPlanTextAnalysis(null);
+    setFileValidationMessage('');
+    try {
+      const result = await readSupportingPdf(file);
+      if (version !== guidedReadVersion.current) return false;
+      if (!result.readable) {
+        setFileValidationMessage('PDFの文字を読み取れませんでした。画像だけのPDFには対応していません。文字情報のある事業計画書PDFを選び直してください。');
+        return false;
+      }
+      const extracted = extractPlanSections(result.pages);
+      if (!Object.values(extracted).some(value => value.trim())) {
+        setFileValidationMessage('PDFから計画項目の本文を特定できませんでした。事業計画書の見出しと文字情報を確認してください。');
+        return false;
+      }
+      setPlan(extracted);
+      const filled = planFields.filter(field => extracted[field.id]?.trim());
+      setPlanTextAnalysis({
+        characters: result.text.length,
+        detectedRound: null,
+        foundHeadings: filled.map(field => field.title),
+        extractedItems: filled.length,
+        sensitiveInfo: detectSensitiveInfo(result.text),
+      });
+      return true;
+    } finally {
+      if (version === guidedReadVersion.current) setGuidedPlanReading(false);
+    }
+  };
+
   const checkGuidedDocuments = async () => {
     if (guidedPlanReading) return;
     if (!guidedPlanFile) {
       setFileValidationMessage('事業計画書のPDFを選んでください。');
       return;
     }
-    setGuidedPlanReading(true);
-    setFileValidationMessage('');
-    try {
-      const result = await readSupportingPdf(guidedPlanFile);
-      if (!result.readable) {
-        setFileValidationMessage('PDFの文字を読み取れませんでした。文字情報のある事業計画書PDFを選び直してください。');
-        return;
-      }
-      const extracted = extractPlanSections(result.pages);
-      if (!Object.values(extracted).some((value) => value.trim())) {
-        setFileValidationMessage('PDFから計画項目の本文を特定できませんでした。見出しと文字情報を確認してください。');
-        return;
-      }
-      setPlan(extracted);
-      const filled = planFields.filter((field) => extracted[field.id]?.trim());
-      setPlanTextAnalysis({
-        characters: result.text.length,
-        detectedRound: null,
-        foundHeadings: filled.map((field) => field.title),
-        extractedItems: filled.length,
-        sensitiveInfo: detectSensitiveInfo(result.text),
-      });
-      setResultScope('all');
-      setStep(4);
-    } finally {
-      setGuidedPlanReading(false);
-    }
+    const ready = planTextAnalysis && Object.values(plan).some(value => value.trim());
+    if (!ready && !(await loadGuidedPlan(guidedPlanFile))) return;
+    setResultScope('all');
+    setStep(4);
   };
 
   const expectedDocumentPattern = (title: string) => {
@@ -1815,6 +1832,8 @@ export default function Home() {
   };
 
   const endWithoutSaving = () => {
+    guidedReadVersion.current += 1;
+    setGuidedPlanReading(false);
     setPlanTextAnalysis(null);
     setPlan({});
     setGuidedPlanFile(null);
@@ -3073,12 +3092,14 @@ export default function Home() {
                           const file = event.target.files?.[0];
                           if (!file || !filesWithinLimit([file])) return;
                           setGuidedPlanFile(file);
-                          setPlan({});
-                          setPlanTextAnalysis(null);
+                          void loadGuidedPlan(file);
+                          event.target.value = '';
                         }}
                       />
                     </label>
                   </article>
+                  {guidedPlanReading && <p role="status" className="mt-3 text-sm font-bold text-primary">PDFの本文を読み取っています…</p>}
+                  {!guidedPlanReading && guidedPlanFile && planTextAnalysis && <p role="status" className="mt-3 text-sm font-bold text-primary">PDFから{planTextAnalysis.extractedItems}項目の本文を読み取りました。詳細チェックを利用できます。</p>}
                   <div className="mt-5 space-y-3">
                     {requiredDocs.map((doc, index) => {
                       const done = uploaded.includes(doc.title);
@@ -3721,7 +3742,8 @@ export default function Home() {
                 </div>
               )}
               <AiDetailCheck
-                disabled={checkMode === 'finalPdf' && safeTestMode}
+                disabled={(checkMode === 'finalPdf' && safeTestMode) || guidedPlanReading}
+                reading={guidedPlanReading}
                 input={{
                   program: `${program.title} ${program.detail}`,
                   businessType,
@@ -3796,7 +3818,8 @@ export default function Home() {
           )}
           {step === 3 && (
               <AiDetailCheck
-                disabled={checkMode === 'finalPdf' && safeTestMode}
+                disabled={(checkMode === 'finalPdf' && safeTestMode) || guidedPlanReading}
+                reading={guidedPlanReading}
                 input={{
                   program: `${program.title} ${program.detail}`,
                   businessType,
