@@ -2,6 +2,7 @@
 
 import { CheckCircle2, CircleDot, LoaderCircle, MailCheck } from 'lucide-react';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const options = [
   {
@@ -35,6 +36,7 @@ export function InquiryStatus({
   initialStatus: string;
   initialUpdatedAt: string | null;
 }) {
+  const router = useRouter();
   const normalized = options.some((option) => option.value === initialStatus)
     ? (initialStatus as Status)
     : 'unread';
@@ -62,6 +64,7 @@ export function InquiryStatus({
       if (!response.ok || !data.updated) throw new Error('save_failed');
       setSavedStatus(nextStatus);
       setUpdatedAt(data.updatedAt || new Date().toISOString());
+      router.refresh();
     } catch {
       setStatus(previous);
       setError('保存できませんでした。もう一度お試しください。');

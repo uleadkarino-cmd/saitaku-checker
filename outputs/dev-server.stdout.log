@@ -628,3 +628,238 @@ Transform failed with 1 error:
  GET /contact 200 in 16.5s (compile: 1795567026.1s, render: 5.1s)
  GET / 200 in 21.0s (compile: 1795567021.1s, render: 14.7s)
  GET /api/quota 401 in 41ms
+ GET / 200 in 1.4s (compile: 1795567015.6s, render: 454ms)
+ GET /api/quota 401 in 150ms
+ GET /api/ai-review 200 in 502ms
+13:07:13 [vite] (rsc) hmr update /app/globals.css
+13:07:13 [vite] (ssr) page reload components/ai-detail-check.tsx
+13:07:13 [vite] (client) hmr update /app/globals.css?direct, /components/ai-detail-check.tsx
+[vite] program reload
+13:07:14 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+13:07:14 [vite] (ssr) page reload app/page.tsx
+13:07:14 [vite] (client) hmr update /app/globals.css?direct, /app/page.tsx
+[vite] hot updated:  virtual:vinext-rsc-entry
+ GET /api/quota 401 in 1.2s
+ GET /api/quota 401 in 187ms
+[vite] program reload
+13:10:01 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+13:10:01 [vite] (ssr) page reload app/page.tsx
+13:10:01 [vite] (client) hmr update /app/globals.css?direct, /app/page.tsx
+[vite] program reload
+ GET /api/quota 401 in 10.7s
+ GET /api/quota 401 in 10.7s
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+ GET / 200 in 12.5s (compile: 1795567018.2s, render: 9.0s)
+[vite] program reload
+[vite] program reload
+ GET /api/quota 401 in 5.4s
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+ GET /api/ai-review 200 in 6.3s
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+ GET / 200 in 3.1s (compile: 1795567017.4s, render: 396ms)
+[vite] program reload
+ GET /api/quota 401 in 4.1s
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+13:14:34 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+13:14:34 [vite] (ssr) page reload app/page.tsx
+13:14:34 [vite] (client) hmr update /app/globals.css?direct, /app/page.tsx
+[vite] program reload
+13:14:35 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+13:14:35 [vite] (client) hmr update /app/globals.css?direct
+[vite] program reload
+ GET /?_rsc 200 in 2.5s (compile: 1795567017.0s, render: 0ms)
+ GET /api/quota 401 in 3.8s
+ GET /api/quota 401 in 3.3s
+[vite] program reload
+ GET /?_rsc 200 in 4.9s (compile: 1795567019.5s, render: 0ms)
+ GET /api/quota 401 in 4.4s
+[vite] program reload
+ GET /api/quota 401 in 6.4s
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+ GET / 200 in 8.2s (compile: 1795567016.2s, render: 6.7s)
+[vite] program reload
+ GET /api/quota 401 in 1.2s
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] program reload
+[vite] hot updated:  virtual:vinext-rsc-entry
+[vite] hot updated:  virtual:vinext-rsc-entry
+[vite] hot updated:  virtual:vinext-rsc-entry
+ GET /api/ai-review 200 in 490ms
+ GET /contact 200 in 468ms (compile: 1795567014.9s, render: 311ms)
+ GET / 200 in 684ms (compile: 1795567014.8s, render: 549ms)
+ GET /api/quota 401 in 60ms
+13:35:30 [vite] (rsc) hmr update /app/globals.css
+13:35:30 [vite] (client) hmr update /app/globals.css?direct
+13:35:34 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+13:35:34 [vite] (client) hmr update /app/globals.css?direct
+[vite] hot updated:  virtual:vinext-rsc-entry
+ GET /?_rsc 200 in 578ms (compile: 1795567015.2s, render: 0ms)

@@ -58,3 +58,18 @@ Detected multiple renderers concurrently rendering the same context provider. Th
 Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
 Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
 Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
+13:02:18 [vite] (client) [console.warn] Warning: Setting up fake worker.
+13:09:12 [vite] (client) [console.warn] Warning: Setting up fake worker.
+13:09:12 [vite] (client) [console.warn] Warning: loadFont - translateFont failed: "UnknownErrorException: Ensure that the `cMapUrl` API parameter is provided.".
+Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
+Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
+Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
+Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
+Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
+13:11:24 [vite] (client) [console.warn] Warning: Setting up fake worker.
+Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
+Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
+Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
+Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
+Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.
+13:17:36 [vite] (client) [console.warn] Warning: Setting up fake worker.

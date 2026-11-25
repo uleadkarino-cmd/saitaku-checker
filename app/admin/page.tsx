@@ -570,7 +570,7 @@ export default async function AdminPage({
           </form>
           <p className="mt-3 text-xs text-muted-foreground">
             {visibleInquiries.length}
-            件を表示しています。対応状況を変更した後は、ページを開き直すと件数にも反映されます。
+            件を表示しています。対応状況を変更すると、一覧と件数が自動で更新されます。
           </p>
         </section>
 
