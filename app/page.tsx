@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { scorePlanText } from '@/lib/plan-scoring';
+import { AiDetailCheck } from '@/components/ai-detail-check';
 import {
   ArrowLeft,
   ArrowRight,
@@ -29,14 +30,6 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { WorkerMessageHandler } from 'pdfjs-dist/build/pdf.worker.mjs';
@@ -872,9 +865,6 @@ export default function Home() {
   const [feedbackScore, setFeedbackScore] = useState(0);
   const [feedbackNote, setFeedbackNote] = useState('');
   const [draftMessage, setDraftMessage] = useState('');
-  const [aiConsentOpen, setAiConsentOpen] = useState(false);
-  const [aiConsent, setAiConsent] = useState(false);
-  const [aiNextMessage, setAiNextMessage] = useState('');
   const [resultCopyMessage, setResultCopyMessage] = useState('');
   const [fileValidationMessage, setFileValidationMessage] = useState('');
   const [qualityTestCase, setQualityTestCase] = useState<number | null>(null);
@@ -1840,8 +1830,6 @@ export default function Home() {
     setAnalysisStage(0);
     setAnalysisState('idle');
     setAnalysisError('');
-    setAiConsentOpen(false);
-    setAiNextMessage('');
     setStep(1);
     setDraftMessage(
       '実書類の解析内容を画面から削除しました。端末内の既存の一時保存データには触れていません。',
@@ -3732,120 +3720,16 @@ export default function Home() {
                   </p>
                 </div>
               )}
-              <section className="premium-card print:hidden">
-                <div className="flex items-start gap-4">
-                  <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-amber-100 text-amber-800">
-                    <LockKeyhole className="size-5" />
-                  </span>
-                  <div>
-                    <Badge className="mb-2 bg-amber-400 text-amber-950">
-                      詳細チェック
-                    </Badge>
-                    <h2 className="text-xl font-bold">
-                      AIで、採択審査の観点まで詳しく確認
-                    </h2>
-                    <p className="mt-2 text-sm leading-7 text-muted-foreground">
-                      市場・顧客ニーズの根拠不足、計画と経費の不整合、売上目標の計算根拠などを分析し、考えるための質問と短い修正例を示します。
-                    </p>
-                    <ul className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
-                      <li className="flex gap-2">
-                        <Check className="mt-0.5 size-4 text-primary" />
-                        審査項目との対応確認
-                      </li>
-                      <li className="flex gap-2">
-                        <Check className="mt-0.5 size-4 text-primary" />
-                        経費の必要性・整合性
-                      </li>
-                      <li className="flex gap-2">
-                        <Check className="mt-0.5 size-4 text-primary" />
-                        不足する数値・根拠
-                      </li>
-                      <li className="flex gap-2">
-                        <Check className="mt-0.5 size-4 text-primary" />
-                        結果レポートのPDF出力
-                      </li>
-                    </ul>
-                    <Button
-                      disabled={checkMode === 'finalPdf' && safeTestMode}
-                      onClick={() => {
-                        setAiConsent(false);
-                        setAiNextMessage('');
-                        setAiConsentOpen(true);
-                      }}
-                      className="mt-5 h-11 rounded-xl px-5"
-                    >
-                      詳細チェックを見る
-                    </Button>
-                    {checkMode === 'finalPdf' && safeTestMode && (
-                      <p className="mt-2 text-xs font-bold text-emerald-800">
-                        実書類テストモード中はAI送信を無効にしています
-                      </p>
-                    )}
-                    {aiNextMessage && (
-                      <p
-                        role="status"
-                        className="mt-3 text-xs font-bold text-primary"
-                      >
-                        {aiNextMessage}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </section>
-              <Dialog open={aiConsentOpen} onOpenChange={setAiConsentOpen}>
-                <DialogContent className="sm:max-w-lg">
-                  <DialogHeader>
-                    <DialogTitle className="text-lg">
-                      AI詳細チェックの利用確認
-                    </DialogTitle>
-                    <DialogDescription className="leading-6">
-                      無料チェックは端末内で完了しています。詳細チェックでは、次の内容をAI解析サービスへ送信します。
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="space-y-3">
-                    <ul className="rounded-xl border border-border bg-muted/40 p-4 text-xs leading-6">
-                      <li>・申請計画として入力または貼り付けた文章</li>
-                      <li>・経費区分、経費内容、金額</li>
-                      <li>・選択した事業者区分、特例・加点</li>
-                    </ul>
-                    <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-xs leading-6 text-emerald-950">
-                      <strong>送信しないもの：</strong>
-                      選択したPDFファイルそのもの、氏名、メールアドレス、端末内の一時保存データ。正式版ではAI提供先、保存期間、利用目的をここに明記します。
-                    </div>
-                    <label className="flex items-start gap-3 text-xs leading-5">
-                      <input
-                        type="checkbox"
-                        checked={aiConsent}
-                        onChange={(event) => setAiConsent(event.target.checked)}
-                        className="mt-0.5 size-4 accent-[var(--primary)]"
-                      />
-                      上記の送信内容を確認し、詳細チェックのためにAI解析サービスへ送信することに同意します。
-                    </label>
-                    <p className="text-[11px] text-muted-foreground">
-                      試作版ではAIへの送信・購入・回数消費は行われません。
-                    </p>
-                  </div>
-                  <DialogFooter>
-                    <Button
-                      variant="outline"
-                      onClick={() => setAiConsentOpen(false)}
-                    >
-                      戻る
-                    </Button>
-                    <Button
-                      disabled={!aiConsent}
-                      onClick={() => {
-                        setAiConsentOpen(false);
-                        setAiNextMessage(
-                          '正式版では、ここからメール認証と購入確認へ進みます。',
-                        );
-                      }}
-                    >
-                      同意して次へ
-                    </Button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
+              <AiDetailCheck
+                disabled={checkMode === 'finalPdf' && safeTestMode}
+                input={{
+                  program: `${program.title} ${program.detail}`,
+                  businessType,
+                  addons,
+                  plan: planFields.map(field => ({ title: field.title, text: plan[field.id] || '' })),
+                  expenses: expenses.map(({ category, name, amount }) => ({ category, name, amount })),
+                }}
+              />
               <section className="mt-7 rounded-2xl border border-border bg-white p-5 sm:p-6 print:hidden">
                 <Badge variant="secondary" className="mb-3">
                   試用アンケート
@@ -3909,6 +3793,18 @@ export default function Home() {
                 </Button>
               </div>
             </>
+          )}
+          {step === 3 && (
+              <AiDetailCheck
+                disabled={checkMode === 'finalPdf' && safeTestMode}
+                input={{
+                  program: `${program.title} ${program.detail}`,
+                  businessType,
+                  addons,
+                  plan: planFields.map(field => ({ title: field.title, text: plan[field.id] || '' })),
+                  expenses: expenses.map(({ category, name, amount }) => ({ category, name, amount })),
+                }}
+              />
           )}
         </section>
       </div>

@@ -559,3 +559,72 @@ Transform failed with 1 error:
 10:22:46 [vite] (client) hmr update /app/globals.css?direct
 10:22:53 [vite] (rsc) hmr update /app/globals.css
 10:22:53 [vite] (client) hmr update /app/globals.css?direct
+ GET / 200 in 6.1s (compile: 1795567016.6s, render: 4.1s)
+ GET /api/quota 401 in 315ms
+ GET /coverage 200 in 319ms (compile: 1795567014.9s, render: 101ms)
+ GET / 200 in 140ms (compile: 1795567014.7s, render: 97ms)
+ GET /api/quota 401 in 28ms
+ GET / 200 in 274ms (compile: 1795567014.7s, render: 193ms)
+[vite] program reload
+10:40:01 [vite] (rsc) hmr update /app/globals.css
+10:40:01 [vite] (client) hmr update /app/globals.css?direct
+10:40:01 [vite] (rsc) hmr update /app/globals.css
+10:40:01 [vite] (client) hmr update /app/globals.css?direct
+10:40:02 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+10:40:02 [vite] (ssr) page reload app/page.tsx
+10:40:02 [vite] (client) hmr update /app/globals.css?direct, /app/page.tsx
+[vite] program reload
+[vite] hot updated:  virtual:vinext-rsc-entry
+ GET /api/quota 401 in 2.7s
+ GET / 200 in 7.2s (compile: 1795567015.5s, render: 6.3s)
+ GET /api/quota 401 in 41ms
+ GET /api/ai-review 200 in 54ms
+10:42:19 [vite] (rsc) hmr update /app/globals.css
+10:42:19 [vite] (ssr) page reload components/ai-detail-check.tsx
+10:42:19 [vite] (client) hmr update /app/globals.css?direct, /components/ai-detail-check.tsx
+[vite] program reload
+10:42:20 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+10:42:20 [vite] (ssr) page reload app/page.tsx
+10:42:20 [vite] (client) hmr update /app/globals.css?direct, /app/page.tsx
+[vite] hot updated:  virtual:vinext-rsc-entry
+ GET /api/quota 401 in 381ms
+ GET /api/quota 401 in 382ms
+ GET /api/ai-review 200 in 77ms
+ GET / 200 in 2.9s (compile: 1795567015.0s, render: 2.6s)
+ GET /api/quota 401 in 39ms
+ GET /api/ai-review 200 in 26ms
+ GET / 200 in 137ms (compile: 1795567014.7s, render: 93ms)
+ GET /api/quota 401 in 24ms
+ GET / 200 in 139ms (compile: 1795567014.7s, render: 110ms)
+ GET /api/quota 401 in 19ms
+ GET / 200 in 144ms (compile: 1795567014.7s, render: 100ms)
+ GET /api/quota 401 in 24ms
+ GET /api/ai-review 200 in 21ms
+ GET /api/ai-review 200 in 35ms
+ GET / 200 in 131ms (compile: 1795567014.7s, render: 88ms)
+ GET /api/quota 401 in 18ms
+ GET /coverage 200 in 155ms (compile: 1795567014.8s, render: 76ms)
+11:37:43 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+11:37:43 [vite] (client) hmr update /app/globals.css?direct
+[vite] hot updated:  virtual:vinext-rsc-entry
+ GET /?_rsc 200 in 1.4s (compile: 1795567016.0s, render: 0ms)
+ GET /contact 200 in 398ms (compile: 1795567014.8s, render: 303ms)
+ GET /contact 200 in 249ms (compile: 1795567014.7s, render: 190ms)
+ POST /api/contact 401 in 64ms
+11:43:38 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+11:43:38 [vite] (ssr) page reload app/contact/page.tsx
+11:43:38 [vite] (client) hmr update /app/globals.css?direct, /app/contact/page.tsx
+[vite] program reload
+[vite] hot updated:  virtual:vinext-rsc-entry
+11:46:43 [vite] changed tsconfig file detected: C:/Users/admin/OneDrive/Desktop/2026/11/20261113/一式_20261113/.wrangler/contact-fix-release/d1-crud-api/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+[vite] program reload
+[vite] program reload
+ GET /contact 200 in 23.6s (compile: 1795567032.5s, render: 5.8s)
+ GET / 200 in 24.5s (compile: 1795567022.1s, render: 17.1s)
+11:48:29 [vite] changed tsconfig file detected: C:/Users/admin/OneDrive/Desktop/2026/11/20261113/一式_20261113/.wrangler/contact-fix-release/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+[vite] program reload
+[vite] program reload
+ GET /api/quota 401 in 3.0s
+ GET /contact 200 in 16.5s (compile: 1795567026.1s, render: 5.1s)
+ GET / 200 in 21.0s (compile: 1795567021.1s, render: 14.7s)
+ GET /api/quota 401 in 41ms
