@@ -863,3 +863,27 @@ Transform failed with 1 error:
 13:35:34 [vite] (client) hmr update /app/globals.css?direct
 [vite] hot updated:  virtual:vinext-rsc-entry
  GET /?_rsc 200 in 578ms (compile: 1795567015.2s, render: 0ms)
+13:51:29 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+13:51:29 [vite] (ssr) page reload app/page.tsx
+13:51:29 [vite] (client) hmr update /app/globals.css?direct, /app/page.tsx
+[vite] program reload
+[vite] hot updated:  virtual:vinext-rsc-entry
+ GET /api/quota 401 in 248ms
+13:52:14 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+13:52:14 [vite] (ssr) page reload app/page.tsx
+13:52:14 [vite] (client) hmr update /app/globals.css?direct, /app/page.tsx
+[vite] hot updated:  virtual:vinext-rsc-entry
+ GET /api/quota 401 in 208ms
+13:55:30 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+13:55:30 [vite] (ssr) page reload app/page.tsx
+13:55:30 [vite] (client) hmr update /app/globals.css?direct, /app/page.tsx
+[vite] hot updated:  virtual:vinext-rsc-entry
+13:55:47 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+13:55:47 [vite] (ssr) page reload app/page.tsx
+13:55:47 [vite] (client) hmr update /app/globals.css?direct, /app/page.tsx
+[vite] hot updated:  virtual:vinext-rsc-entry
+13:56:36 [vite] (rsc) hmr update /@id/__x00__virtual:vinext-rsc-entry, /app/globals.css
+13:56:36 [vite] (ssr) page reload app/page.tsx
+13:56:36 [vite] (client) hmr update /app/globals.css?direct, /app/page.tsx
+[vite] hot updated:  virtual:vinext-rsc-entry
+ GET /api/quota 401 in 199ms

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { scorePlanText } from '@/lib/plan-scoring';
 import { AiDetailCheck } from '@/components/ai-detail-check';
+import { DocumentDropZone } from '@/components/document-drop-zone';
 import {
   ArrowLeft,
   ArrowRight,
@@ -782,6 +783,7 @@ export default function Home() {
   const [fiscalHistory, setFiscalHistory] = useState('1期以上');
   const [area, setArea] = useState('商工会議所地区');
   const [uploaded, setUploaded] = useState<string[]>([]);
+  const [selectedDocumentNames, setSelectedDocumentNames] = useState<Record<string, string>>({});
   const [plan, setPlan] = useState<Record<string, string>>({});
   const [openPlanGroups, setOpenPlanGroups] = useState<string[]>([
     '経営計画',
@@ -1452,6 +1454,7 @@ export default function Home() {
       setMunicipality(draft.municipality || '');
       setCheckMode(draft.checkMode || 'guided');
       setUploaded([]);
+    setSelectedDocumentNames({});
       setDraftMessage(
         '保存した入力内容を復元しました。PDFなどのファイルは保存されていません。',
       );
@@ -1601,6 +1604,63 @@ export default function Home() {
     if (!ready && !(await loadGuidedPlan(guidedPlanFile))) return;
     setResultScope('all');
     setStep(4);
+  };
+
+  const selectExpenseFiles = (files: File[]) => {
+    if (!files.length) return;
+    if (!filesWithinLimit(files)) return;
+    if (files.some(file => !/\.(pdf|xlsx?|jpe?g|png)$/iu.test(file.name))) {
+      setFileValidationMessage('経費ファイルはPDF、Excel、JPEG、PNGのいずれかを選択してください。');
+      return;
+    }
+    setExpenseFiles(files);
+    setExpenseFilesChecked(false);
+    setExpenseFileAnalysis(null);
+  };
+
+  const selectRequiredDocFile = (files: File[], title: string) => {
+    if (files.length !== 1) {
+      setFileValidationMessage('書類の枠ごとに、ファイルを1つずつ選択してください。');
+      return;
+    }
+    const file = files[0];
+    if (!filesWithinLimit([file])) return;
+    if (!/貸借対照表|損益計算書/u.test(title) && !/\.(pdf|xlsx?|docx?|jpe?g|png)$/iu.test(file.name)) {
+      setFileValidationMessage('PDF、Excel、Word、JPEG、PNGのいずれかを選択してください。');
+      return;
+    }
+    setRequiredDocFiles(current => ({ ...current, [title]: file }));
+    setRequiredDocsChecked(false);
+    setRequiredDocAnalysis(current => {
+      const next = { ...current };
+      delete next[title];
+      return next;
+    });
+  };
+
+  const selectDocumentFile = (files: File[], title?: string) => {
+    if (files.length !== 1) {
+      setFileValidationMessage('書類の枠ごとに、ファイルを1つずつ選択してください。');
+      return;
+    }
+    const file = files[0];
+    if (!filesWithinLimit([file])) return;
+    if (!title) {
+      if (guidedPlanReading) return;
+      if (!/\.pdf$/iu.test(file.name)) {
+        setFileValidationMessage('事業計画書はPDFファイルを選択してください。');
+        return;
+      }
+      setGuidedPlanFile(file);
+      void loadGuidedPlan(file);
+      return;
+    }
+    if (!/貸借対照表|損益計算書/u.test(title) && !/\.(pdf|xlsx?|docx?|jpe?g|png)$/iu.test(file.name)) {
+      setFileValidationMessage('PDF、Excel、Word、JPEG、PNGのいずれかを選択してください。');
+      return;
+    }
+    setSelectedDocumentNames(current => ({ ...current, [title]: file.name }));
+    setUploaded(items => items.includes(title) ? items : [...items, title]);
   };
 
   const expectedDocumentPattern = (title: string) => {
@@ -2779,7 +2839,7 @@ export default function Home() {
                         </p>
                       </div>
                     </div>
-                    <div className="mt-4 flex flex-wrap items-center gap-3">
+                    <DocumentDropZone onFiles={selectExpenseFiles} className="mt-4 flex flex-wrap items-center gap-3 rounded-xl border border-dashed border-amber-300 p-4">
                       <label className="inline-flex h-10 cursor-pointer items-center gap-2 rounded-lg border border-amber-400 bg-white px-4 text-sm font-bold text-amber-900 hover:bg-amber-50">
                         <Upload className="size-4" />
                         経費ファイルを選ぶ
@@ -2789,11 +2849,8 @@ export default function Home() {
                           accept=".pdf,.xlsx,.xls,.jpg,.jpeg,.png"
                           className="sr-only"
                           onChange={(event) => {
-                            const files = Array.from(event.target.files || []);
-                            if (!filesWithinLimit(files)) return;
-                            setExpenseFiles(files);
-                            setExpenseFilesChecked(false);
-                            setExpenseFileAnalysis(null);
+                            selectExpenseFiles(Array.from(event.target.files || []));
+                            event.target.value = '';
                           }}
                         />
                       </label>
@@ -2821,7 +2878,8 @@ export default function Home() {
                         )}
                         経費明細をチェック
                       </Button>
-                    </div>
+                      <p className="w-full text-sm text-muted-foreground">この枠にファイルをドラッグ＆ドロップできます（複数選択可）。</p>
+                    </DocumentDropZone>
                     {expenseFiles.length > 0 && (
                       <ul className="mt-4 space-y-2">
                         {expenseFiles.map((file, index) => (
@@ -2879,9 +2937,10 @@ export default function Home() {
                       {requiredDocs.map((doc) => {
                         const guidance = getRequiredDocumentGuidance(doc.title);
                         return (
-                          <div
+                          <DocumentDropZone
                             key={doc.title}
-                            className="rounded-xl border border-border bg-muted/20 p-3"
+                            onFiles={files => selectRequiredDocFile(files, doc.title)}
+                            className="rounded-xl border border-dashed border-border bg-muted/20 p-3"
                           >
                             <div className="flex flex-wrap items-center justify-between gap-3">
                               <div className="min-w-0">
@@ -2906,19 +2965,8 @@ export default function Home() {
                                     }
                                     className="sr-only"
                                     onChange={(event) => {
-                                      const file = event.target.files?.[0];
-                                      if (file && filesWithinLimit([file])) {
-                                        setRequiredDocFiles((current) => ({
-                                          ...current,
-                                          [doc.title]: file,
-                                        }));
-                                        setRequiredDocsChecked(false);
-                                        setRequiredDocAnalysis((current) => {
-                                          const next = { ...current };
-                                          delete next[doc.title];
-                                          return next;
-                                        });
-                                      }
+                                      if (event.target.files?.length) selectRequiredDocFile(Array.from(event.target.files), doc.title);
+                                      event.target.value = '';
                                     }}
                                   />
                                 </label>
@@ -2948,7 +2996,7 @@ export default function Home() {
                             </div>
                             <div className="mt-3 rounded-lg bg-white/80 px-3 py-2">
                               <p className="text-[11px] font-bold text-sky-950">
-                                この書類で確認すること
+                                この枠にファイルをドラッグ＆ドロップできます。この書類で確認すること
                               </p>
                               <ul className="mt-1 grid gap-1 text-[11px] leading-5 text-muted-foreground sm:grid-cols-3">
                                 {guidance.checkpoints.map((item) => (
@@ -2959,7 +3007,7 @@ export default function Home() {
                                 ))}
                               </ul>
                             </div>
-                          </div>
+                          </DocumentDropZone>
                         );
                       })}
                     </div>
@@ -3060,7 +3108,7 @@ export default function Home() {
                       {requiredDocs.length + 1}件
                     </p>
                   </div>
-                  <article className={`document-row mt-5 ${guidedPlanFile ? 'document-done' : ''}`}>
+                  <DocumentDropZone disabled={guidedPlanReading} onFiles={files => selectDocumentFile(files)} className={`document-row mt-5 ${guidedPlanFile ? 'document-done' : ''}`}>
                     <span className={`doc-number ${guidedPlanFile ? 'doc-number-done' : ''}`}>
                       {guidedPlanFile ? <Check className="size-4" /> : 1}
                     </span>
@@ -3071,6 +3119,9 @@ export default function Home() {
                       </div>
                       <p className="mt-1 text-xs leading-5 text-muted-foreground">
                         PDF本文を項目ごとに読み取り、提出前の確認結果に反映します。
+                      </p>
+                      <p className="mt-2 text-sm font-medium text-primary">
+                        この枠にPDFをドラッグ＆ドロップ、または「選ぶ」を押してください。
                       </p>
                       {guidedPlanFile && (
                         <p className="mt-2 flex items-center gap-1.5 text-xs font-bold text-primary">
@@ -3089,23 +3140,21 @@ export default function Home() {
                         className="sr-only"
                         aria-label="事業計画書（様式2・3）のPDFを選ぶ"
                         onChange={(event) => {
-                          const file = event.target.files?.[0];
-                          if (!file || !filesWithinLimit([file])) return;
-                          setGuidedPlanFile(file);
-                          void loadGuidedPlan(file);
+                          if (event.target.files?.length) selectDocumentFile(Array.from(event.target.files));
                           event.target.value = '';
                         }}
                       />
                     </label>
-                  </article>
+                  </DocumentDropZone>
                   {guidedPlanReading && <p role="status" className="mt-3 text-sm font-bold text-primary">PDFの本文を読み取っています…</p>}
                   {!guidedPlanReading && guidedPlanFile && planTextAnalysis && <p role="status" className="mt-3 text-sm font-bold text-primary">PDFから{planTextAnalysis.extractedItems}項目の本文を読み取りました。詳細チェックを利用できます。</p>}
                   <div className="mt-5 space-y-3">
                     {requiredDocs.map((doc, index) => {
                       const done = uploaded.includes(doc.title);
                       return (
-                        <article
+                        <DocumentDropZone
                           key={doc.title}
+                          onFiles={files => selectDocumentFile(files, doc.title)}
                           className={`document-row ${done ? 'document-done' : ''}`}
                         >
                           <span
@@ -3125,10 +3174,11 @@ export default function Home() {
                             <p className="mt-1 text-xs leading-5 text-muted-foreground">
                               {doc.note}
                             </p>
+                            <p className="mt-2 text-sm font-medium text-primary">この枠にファイルをドラッグ＆ドロップできます。</p>
                             {done && (
                               <p className="mt-2 flex items-center gap-1.5 text-xs font-bold text-primary">
                                 <Paperclip className="size-3.5" />{' '}
-                                ファイルを確認しました
+                                {selectedDocumentNames[doc.title] || 'ファイルを確認しました'}
                               </p>
                             )}
                           </div>
@@ -3146,16 +3196,12 @@ export default function Home() {
                                   : '.pdf,.xlsx,.xls,.doc,.docx,.jpg,.jpeg,.png'
                               }
                               onChange={(event) => {
-                                if (event.target.files?.length)
-                                  setUploaded((items) =>
-                                    items.includes(doc.title)
-                                      ? items
-                                      : [...items, doc.title],
-                                  );
+                                if (event.target.files?.length) selectDocumentFile(Array.from(event.target.files), doc.title);
+                                event.target.value = '';
                               }}
                             />
                           </label>
-                        </article>
+                        </DocumentDropZone>
                       );
                     })}
                   </div>
