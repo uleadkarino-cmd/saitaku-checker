@@ -46,4 +46,4 @@ node node_modules/wrangler/bin/wrangler.js tail saitaku-checker --config cloudfl
 
 ## 共有対象
 
-ソースコードと設定、および `dist` のビルド結果とルートの `node_modules` の依存パッケージを共有します。管理者パスワード・ログイン情報・ローカルDB・アクセスログ・アップロード書類・実行時キャッシュは含めません。これらは `.gitignore` で除外しています。`d1-crud-api` のサンプルプロジェクトもソースコードと設定を共有します。
+ソースコードと設定、および `dist` のビルド結果とルートの `node_modules` の依存パッケージ、`outputs` の開発サーバーログを共有します。管理者パスワード・ログイン情報（`outputs/cloudflare-private`）・ローカルDB・アップロード書類・実行時キャッシュは含めません。これらは `.gitignore` で除外しています。`d1-crud-api` のサンプルプロジェクトもソースコードと設定を共有します。
