@@ -610,7 +610,7 @@ export default async function AdminPage({
                 >
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                      <span className="inline-flex rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-bold text-amber-900">
+                      <span className="inline-flex rounded-full border border-amber-200 bg-amber-50 px-5 py-2 text-lg font-bold leading-7 text-amber-900">
                         {inquiry.category}
                       </span>
                       <p className="mt-3 text-xs text-muted-foreground">
@@ -667,7 +667,7 @@ export default async function AdminPage({
                       <MessageSquareText className="size-4 text-primary" />
                       お問い合わせ内容
                     </div>
-                    <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-7 text-muted-foreground">
+                    <p className="mt-3 whitespace-pre-wrap break-words text-base font-semibold leading-8 text-black" style={{ color: '#000000' }}>
                       {inquiry.message}
                     </p>
                   </div>

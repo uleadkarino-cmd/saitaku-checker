@@ -128,7 +128,7 @@ export default function ContactPage() {
       const reason = error instanceof Error ? error.message : '';
       setSendError(
         reason === 'too_many_requests'
-          ? '短時間に送信できる件数を超えました。時間を置いてからお試しください。'
+          ? '過去24時間の送信上限（5件）に達しました。このお問い合わせはまだ登録されていません。時間を置いてから再送信してください。'
           : reason === 'signin_required'
             ? '送信するにはログインしてください。'
             : '送信できませんでした。通信状態を確認して、もう一度お試しください。',

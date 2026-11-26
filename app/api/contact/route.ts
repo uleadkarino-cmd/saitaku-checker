@@ -59,7 +59,7 @@ export async function POST(request: Request) {
 
   await env.DB.batch([env.DB.prepare(tableSql), env.DB.prepare(indexSql)]);
   const recent = await env.DB.prepare(
-    "SELECT COUNT(*) AS count FROM contact_inquiries WHERE user_id = ? AND created_at >= datetime('now', '-1 day')",
+    "SELECT COUNT(*) AS count FROM contact_inquiries WHERE user_id = ? AND julianday(created_at) >= julianday('now', '-1 day')",
   )
     .bind(userId)
     .first<{ count: number }>();
