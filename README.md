@@ -1,4 +1,4 @@
-# サイタク！補助金書類チェッカー
+# 補助金チェック
 
 React・TypeScript・Vinextを使用したWebアプリです。公開先はCloudflare Workers、データベースはD1です。
 
